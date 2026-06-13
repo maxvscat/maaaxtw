@@ -171,6 +171,28 @@
             font-weight: 800;
         }
 
+        .hero-copy {
+            width: min(100%, 900px);
+        }
+
+        .hero-label {
+            display: flex;
+            align-items: center;
+            min-height: 18px;
+        }
+
+        .hero-heading {
+            min-height: 2.1em;
+        }
+
+        .hero-description {
+            min-height: 64px;
+        }
+
+        .hero-actions {
+            min-height: 48px;
+        }
+
         .dark-rule { border-top: 1px solid var(--line); }
 
         .category-button {
@@ -337,6 +359,35 @@
             .hero-stage .film-strip:nth-child(3) { display: none; }
             .film-frame { min-height: 170px; }
             .film-frame.tall { min-height: 240px; }
+            .hero-copy {
+                display: grid;
+                grid-template-rows: 18px 156px 64px 48px;
+                align-content: center;
+                min-height: 330px;
+            }
+            .hero-label {
+                margin-bottom: 0 !important;
+            }
+            .hero-heading {
+                display: flex;
+                align-items: center;
+                min-height: 156px;
+                font-size: 42px !important;
+                line-height: 1.08 !important;
+            }
+            .hero-description {
+                display: flex;
+                align-items: center;
+                min-height: 64px;
+                margin-top: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.75 !important;
+            }
+            .hero-actions {
+                align-items: center;
+                min-height: 48px;
+                margin-top: 0 !important;
+            }
             .step-indicator { display: none; }
             .work-grid { gap: 14px; }
             .work-grid .video-card,
@@ -393,15 +444,15 @@
             <div class="hero-shade"></div>
 
             <div class="relative z-10 mx-auto flex h-full max-w-7xl items-center px-5 pt-20 md:px-8">
-                <div class="max-w-4xl">
-                    <div id="stepText" class="mono-label mb-5">PRODUCT FILM</div>
-                    <h1 id="heroTitle" class="serif text-5xl font-black leading-[1.05] text-white md:text-7xl lg:text-8xl">
+                <div class="hero-copy max-w-4xl">
+                    <div id="stepText" class="hero-label mono-label mb-5">PRODUCT FILM</div>
+                    <h1 id="heroTitle" class="hero-heading serif text-5xl font-black leading-[1.05] text-white md:text-7xl lg:text-8xl">
                         讓節奏、畫面與資訊<br class="hidden md:block">剪成能被記住的故事。
                     </h1>
-                    <p id="heroPara" class="mt-7 max-w-2xl text-lg leading-8 text-neutral-200 md:text-xl">
+                    <p id="heroPara" class="hero-description mt-7 max-w-2xl text-lg leading-8 text-neutral-200 md:text-xl">
                         我是 Max，專注於影片剪輯、遊戲與品牌宣傳、訪談節目、短影音，以及 2D / 3D 動態視覺。
                     </p>
-                    <div class="mt-10 flex flex-wrap gap-3">
+                    <div class="hero-actions mt-10 flex flex-wrap gap-3">
                         <button type="button" data-page-link="work" class="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black hover:bg-[var(--mint)]">
                             <i data-lucide="play" class="h-4 w-4"></i>
                             看作品
@@ -837,9 +888,7 @@
                 .to(".strip-b", { yPercent: 24, duration: 1 }, 0)
                 .to(".strip-c", { yPercent: -34, duration: 1 }, 0)
                 .to(".strip-d", { yPercent: 18, duration: 1 }, 0)
-                .to(".hero-stage", { scale: 1.16, opacity: 0.46, duration: 1 }, 0)
-                .to("#heroTitle", { y: -18, duration: 1 }, 0)
-                .to("#heroPara", { y: 18, duration: 1 }, 0);
+                .to(".hero-stage", { scale: 1.16, opacity: 0.46, duration: 1 }, 0);
         }
 
         function setupReveal() {
