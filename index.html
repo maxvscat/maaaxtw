@@ -255,6 +255,16 @@
             font-size: 18px;
         }
 
+        .video-meta-title {
+            display: -webkit-box;
+            overflow: hidden;
+            color: #8e8e8a;
+            font-size: 12px;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
         .play-mark {
             position: absolute;
             left: 50%;
@@ -329,7 +339,7 @@
             <div class="hidden items-center gap-8 text-sm text-neutral-300 md:flex">
                 <button type="button" class="nav-link hover:text-white" data-page-link="work">作品</button>
                 <button type="button" class="nav-link hover:text-white" data-scroll-link="process">專長</button>
-                <button type="button" class="nav-link hover:text-white" data-scroll-link="contact">聯絡</button>
+                <button type="button" class="nav-link hover:text-white" data-page-link="contact">聯絡</button>
             </div>
         </div>
     </nav>
@@ -381,7 +391,7 @@
                             <i data-lucide="play" class="h-4 w-4"></i>
                             看作品
                         </button>
-                        <button type="button" data-scroll-link="contact" class="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 px-6 text-sm font-bold text-white hover:border-white">
+                        <button type="button" data-page-link="contact" class="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 px-6 text-sm font-bold text-white hover:border-white">
                             <i data-lucide="send" class="h-4 w-4"></i>
                             聯絡合作
                         </button>
@@ -391,18 +401,6 @@
         </header>
 
         <main>
-            <section class="bg-[var(--paper)] px-5 py-20 text-[#161616] md:px-8 md:py-28">
-                <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-end">
-                    <div class="reveal">
-                        <div class="mono-label mb-4 text-[#b24635]">SHOWREEL MAP</div>
-                        <h2 class="serif text-4xl font-black leading-tight md:text-6xl">把舊作品整理成更好瀏覽的節奏。</h2>
-                    </div>
-                    <p class="reveal text-lg leading-9 text-neutral-700">
-                        舊作品集中的 YouTube 作品已依內容分成產品介紹、企業品牌、遊戲宣傳、節目剪輯、短影音、人物動畫、2D 動畫與 3D 動畫。點右上角「作品」即可進入完整作品頁。
-                    </p>
-                </div>
-            </section>
-
             <section id="process" class="dark-rule px-5 py-20 md:px-8 md:py-28">
                 <div class="mx-auto grid max-w-7xl gap-12 md:grid-cols-[0.8fr_1.2fr]">
                     <div class="reveal">
@@ -434,7 +432,7 @@
 
     <div id="pageWork" class="view-page min-h-screen px-5 pb-20 pt-32 md:px-8">
         <main class="mx-auto max-w-7xl">
-            <div class="mb-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div class="mb-10">
                 <div class="max-w-3xl">
                     <div class="mono-label mb-4">WORKS</div>
                     <h1 class="serif text-5xl font-black leading-tight md:text-7xl">作品集 Works</h1>
@@ -442,37 +440,43 @@
                         這裡收錄舊作品集中的全部 YouTube 嵌入作品；可依類型篩選觀看。
                     </p>
                 </div>
-                <div class="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                        <div id="totalCount" class="text-3xl font-black text-white">100</div>
-                        <div class="text-sm text-neutral-500">YouTube 作品</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-black text-white">8</div>
-                        <div class="text-sm text-neutral-500">內容分類</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-black text-white">0MB</div>
-                        <div class="text-sm text-neutral-500">本地影片空間</div>
-                    </div>
-                </div>
             </div>
             <div id="categoryFilters" class="mb-8 flex gap-3 overflow-x-auto pb-2"></div>
             <div id="videoGrid" class="work-grid"></div>
         </main>
     </div>
 
-    <footer id="contact" class="bg-[#0b0b0b] px-5 py-16 md:px-8">
+    <div id="pageContact" class="view-page min-h-screen px-5 pb-20 pt-32 md:px-8">
+        <main class="mx-auto max-w-5xl">
+            <div class="mono-label mb-4">CONTACT</div>
+            <h1 class="serif text-5xl font-black leading-tight md:text-7xl">聯絡我 Contact</h1>
+            <div class="mt-12 grid gap-4 md:grid-cols-3">
+                <a href="https://line.me/ti/p/~ddrmixoftyhs" target="_blank" rel="noreferrer" class="rounded-lg border border-white/15 bg-white/[0.04] p-6 hover:border-white/40">
+                    <div class="mb-3 text-sm font-bold text-[var(--mint)]">Line ID</div>
+                    <div class="break-all text-xl font-black text-white">ddrmixoftyhs</div>
+                </a>
+                <a href="mailto:ddrmixoftyhs@gmail.com" class="rounded-lg border border-white/15 bg-white/[0.04] p-6 hover:border-white/40">
+                    <div class="mb-3 text-sm font-bold text-[var(--mint)]">Email</div>
+                    <div class="break-all text-xl font-black text-white">ddrmixoftyhs@gmail.com</div>
+                </a>
+                <a href="tel:0988829624" class="rounded-lg border border-white/15 bg-white/[0.04] p-6 hover:border-white/40">
+                    <div class="mb-3 text-sm font-bold text-[var(--mint)]">Mobile</div>
+                    <div class="break-all text-xl font-black text-white">0988829624</div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-[#0b0b0b] px-5 py-16 md:px-8">
         <div class="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
                 <div class="mono-label mb-4">CONTACT</div>
-                <h2 class="serif text-4xl font-black">有影片需要被整理成故事嗎？</h2>
-                <p class="mt-4 max-w-xl leading-8 text-neutral-400">歡迎從舊站聯絡頁或你慣用的方式找我聊聊合作方向。</p>
+                <h2 class="serif text-4xl font-black">歡迎找我聊聊合作方向</h2>
             </div>
-            <a href="https://maaax.myportfolio.com/contact" target="_blank" rel="noreferrer" class="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black hover:bg-[var(--gold)]">
-                <i data-lucide="external-link" class="h-4 w-4"></i>
+            <button type="button" data-page-link="contact" class="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black hover:bg-[var(--gold)]">
+                <i data-lucide="send" class="h-4 w-4"></i>
                 前往聯絡頁
-            </a>
+            </button>
         </div>
     </footer>
 
@@ -513,6 +517,106 @@
 
         let heroScrollReady = false;
 
+        const youtubeTitles = {
+            "M_y2oiMH8JI": "20170418火山甘露茶",
+            "OKfTS49F50M": "20161012Day'sTree草本潤色粉底乳",
+            "aFEivPEr7LM": "2012電購-包中包",
+            "hEYGtCaKRw0": "20220711 snug動畫 英文版3",
+            "eDG0-_nEXbw": "2014康園公司介紹影片",
+            "WgjaNbnOklA": "2015創辦人的精神",
+            "sfUliZwMHe8": "20220301 網銀企業簡介EN",
+            "NectNxyCw80": "光 工作室",
+            "1ydoH79yqQE": "TIDY網站宣傳動畫",
+            "AL6-rTltOEE": "閃電狼官網動畫",
+            "mJzDx22AMFQ": "麻將尬SLOT，一秒上桌就開打！ | 星城Online",
+            "sJLAVGjKLuY": "血月伯爵甦醒，擴張勢力建帝國 | 星城Online",
+            "dE6RsqvUz00": "彩虹寶庫開啟，倍率疊加彩金拿滿滿 | 星城Online",
+            "eYYTn8WjKUY": "滿貫大富豪開桌！神手自摸拿役滿 | 星城Online",
+            "-EyPnt0SKS4": "貓財神9:16",
+            "614I1ZWxgVY": "法蘭克9:16",
+            "B_dvX8tfVfY": "投資快問快答",
+            "1Jx-WUdLLYI": "愛打手槍會遲射？早洩如何鎖精？",
+            "gcIP51XjfLA": "礁溪老爺酒店飯店開箱",
+            "25x5JeNA-eg": "五湖園攜手瑪利亞天使公益路跑",
+            "i2fClioc2sg": "彰化控肉飯節宣傳短片",
+            "VH7aiJYjHxk": "日本旅遊攻略與自由行資訊",
+            "RyiQk4kQ9cM": "來去基隆轉運站0612",
+            "Ieq2hOzhapk": "童子瑋0527",
+            "Qef_eayYpJk": "台中東協廣場美食介紹",
+            "rv1Esq0JH4s": "486街頭全民調：藐視國會罪",
+            "tG6OffaoNo0": "啟程男體實測",
+            "sg_ptpU7Fow": "啟程泌尿科診所年度桌曆",
+            "9Kr9UaCs11I": "不動產說明書｜永慶簡立杰",
+            "UXsexCu71gA": "多射精可防攝護腺癌？",
+            "JjvH4oP_U80": "AnimalEP01",
+            "mqUyWMB-cv4": "令狐沖爺爺遊戲實況剪輯",
+            "MQgq8_K-grE": "潭日月飯店開箱",
+            "lsPL6wEpNEc": "誠品行旅耶誕大餐介紹",
+            "vQJQBZVEVjE": "A9K濕拖吸塵器好物開箱",
+            "y5Bb5woguJU": "空氣清淨機選購教學",
+            "yHbw0ny2GA0": "節目剪輯作品",
+            "sQD3f8rWt5Y": "周星馳電影台詞名場面大考問",
+            "K8ASlcauZ6I": "節目剪輯作品",
+            "fj3MTlHG034": "看韓劇學英文",
+            "P7cwrrJAvFs": "國中地理方位教學",
+            "5ma4MFx1kH4": "幣安EP01",
+            "7WXBNHivN0U": "庫侖定律教學",
+            "k7ZFT15wgkg": "歡樂慶元宵路跑",
+            "U-64TYNWIrc": "后里福容飯店活動記錄",
+            "xdLj0ni_hNg": "久站舒壓鞋墊短影音",
+            "FUN6HKfKZvI": "兆聖0821",
+            "IqCjD_hK6UY": "天堂PK宣傳",
+            "tESShYY1VBY": "設計思考與專案管理短影音",
+            "WO14GC2l_fY": "短新聞：盧秀燕死亡連署",
+            "8ASr_io7eNo": "短新聞：楊烈大罷免呼籲",
+            "FqYnSRuCwF0": "外泌體面膜短影音",
+            "ACKdtqvte-E": "Dr.A 綜合篇",
+            "bCwa0STIoOA": "揪緊蟑短影音",
+            "dV-HbfulL00": "AL水果傷口短影音",
+            "3eHFRRycd4c": "MacBook換螢幕短影音",
+            "svQ_vcZ2L4w": "MacBook花屏更換短影音",
+            "B3S5THFhoGo": "梨山02",
+            "0lE-9TaevjU": "盛記0902",
+            "jksr-6VmCb4": "Moiskin洗面霜產品短影音",
+            "npGNFTyZi-c": "486街頭全民調：中天執照",
+            "r2VlrkY9Rm4": "TRUU童卸妝產品短影音",
+            "sEpV9Kfi8AM": "TRUU童防護產品短影音",
+            "7ajBfUQ6jUk": "TRUU童保養產品短影音",
+            "pLeCcsKyL80": "TRUU童防曬產品短影音",
+            "zaKxtdAPUtE": "TSB元宇宙短影音",
+            "LfJkjG5pclw": "澎沛短影音",
+            "aMz9Hcs1OlM": "盛惠短影音",
+            "0tZkZJ426gk": "短影音作品",
+            "K_MbXWHJrPc": "什麼是品牌？",
+            "GWvy7JT8GMQ": "新竹農場短影音",
+            "DG-Ne6qhaH0": "郭董EP04",
+            "ax60dpUN39g": "NewYearLion",
+            "XBlLYriB4jw": "獸醫短影音",
+            "43bam2TfdPw": "程威銘醫生短影音",
+            "1Cru9Z_zkRk": "Dr.A短影音",
+            "U6qGks80LTg": "Chipi Chipi流行短影音",
+            "pBEpJ66Cyh0": "龍蝦裝設計短影音",
+            "-CYc-qRFc3g": "周處除三害迷因短影音",
+            "L6bIQyFPuU8": "Nezha vs the Sea PK sample",
+            "1wLb3J4RFVI": "Nezha vs the Sea killbug sample",
+            "lMwdCNuXVws": "電子發票2D動畫",
+            "IYrMhEcs9L4": "法規資料庫2D動畫",
+            "7BT11pABSaI": "Spine角色動畫：源氏",
+            "mXUz07kVwlQ": "HITO團購平台動畫說明",
+            "TFO5G8gpe_Q": "Jourmini Gemini API動畫",
+            "-XiTpX4vQDA": "月亮傳說動畫短片",
+            "w_PE_kLH-u8": "米其林午餐動畫短片",
+            "4tqygYnojYI": "國中地理東南亞氣候教學",
+            "5hRSKyXrrGE": "3D彈珠台",
+            "pB8qiywWRk8": "遊戲品牌形象影片",
+            "POKcEZ2pnxU": "草本潤色粉底乳3D動畫",
+            "QZ5XkDBilH4": "遊戲宣傳影片3D",
+            "SH2sGEXeVpE": "3D Hand",
+            "RIITfmxmYcQ": "3D工廠",
+            "O2nhgQxO0ig": "3D工廠0704",
+            "KQNIcUdl6cQ": "黃仁勳片頭動畫"
+        };
+
         function ids(category, orientation, list) {
             return list.map(id => ({ id, category, orientation }));
         }
@@ -532,6 +636,43 @@
 
         function thumbUrl(id) {
             return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function workTitle(video) {
+            return youtubeTitles[video.id] || `${video.category}作品`;
+        }
+
+        function workLabel(video) {
+            const title = workTitle(video);
+            const text = `${title} ${video.category}`.toLowerCase();
+
+            if (/企業簡介|公司介紹|公司介紹影片/.test(title)) return "企業簡介";
+            if (/創辦人|精神/.test(title)) return "品牌故事";
+            if (/工作室/.test(title)) return "工作室形象";
+            if (/網站|官網/.test(title)) return "網站宣傳動畫";
+            if (/遊戲品牌形象|品牌形象影片/.test(title)) return "遊戲品牌形象";
+            if (/星城|online|slot|天堂|貓財神|法蘭克|遊戲|實況|陸服|byg/.test(text)) return "遊戲宣傳";
+            if (/3d|工廠|彈珠台|hand/.test(text)) return "3D動畫";
+            if (/2d|spine|動畫說明|motion|jourmini|地理|電子發票|法規資料庫|源氏/.test(text)) return "2D動畫";
+            if (/飯店|旅遊|自由行|美食|午餐|耶誕|東協廣場|礁溪|潭日月|行旅|農場|梨山/.test(title)) return "美食旅遊影片";
+            if (/街頭|全民調|短新聞|大罷免|國會|中天|盧秀燕|楊烈/.test(title)) return "街訪短新聞";
+            if (/醫|診所|泌尿|攝護腺|早洩|男體|外泌體|面膜|傷口|dr\\.?a|程威銘/.test(text)) return video.orientation === "vertical" ? "醫療健康短影音" : "醫療健康節目";
+            if (/產品|粉底|包中包|鞋墊|洗面霜|卸妝|防護|保養|防曬|吸塵器|清淨機|a9k|truu|moiskin|day'stree|火山甘露茶/.test(text)) return video.orientation === "vertical" ? "產品短影音" : "產品介紹";
+            if (/活動|路跑|飯節|元宵|記錄|紀錄|轉運站|五湖園|福容/.test(title)) return "活動紀錄";
+            if (/教學|國中|庫侖|英文|幣安|投資|不動產|說明書|快問快答|品牌/.test(title)) return "知識教學影片";
+            if (/開箱|好物|團購|選購/.test(title)) return "開箱介紹";
+            if (/宣傳短片|宣傳/.test(title)) return video.orientation === "vertical" ? "宣傳短影音" : "宣傳影片";
+            if (video.orientation === "vertical") return "社群短影音";
+            return video.category;
         }
 
         function renderFilters(activeKey) {
@@ -561,8 +702,8 @@
                     </div>
                     <div class="flex items-center justify-between gap-3 border-t border-white/10 px-4 py-3">
                         <div>
-                            <div class="text-sm font-bold text-white">${video.category}</div>
-                            <div class="text-xs text-neutral-500">點擊縮圖在頁面內播放</div>
+                            <div class="text-sm font-bold text-white">${escapeHtml(workLabel(video))}</div>
+                            <div class="video-meta-title">${escapeHtml(workTitle(video))}</div>
                         </div>
                     </div>
                 </article>
@@ -610,15 +751,17 @@
 
         function showPage(page) {
             const isWork = page === "work";
-            document.getElementById("pageHome").classList.toggle("active", !isWork);
+            const isContact = page === "contact";
+            document.getElementById("pageHome").classList.toggle("active", page === "home");
             document.getElementById("pageWork").classList.toggle("active", isWork);
+            document.getElementById("pageContact").classList.toggle("active", isContact);
             document.querySelectorAll(".nav-link").forEach(link => {
                 link.classList.toggle("active", link.dataset.pageLink === page);
             });
-            document.getElementById("stepIndicator").style.display = isWork ? "none" : "";
+            document.getElementById("stepIndicator").style.display = page === "home" ? "" : "none";
             window.scrollTo({ top: 0, behavior: "auto" });
             if (isWork) setCategory("all");
-            if (!isWork) setupHeroScroll();
+            if (page === "home") setupHeroScroll();
             if (window.ScrollTrigger) ScrollTrigger.refresh();
         }
 
@@ -694,7 +837,6 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("totalCount").textContent = allVideos.length;
             document.getElementById("protocolWarning").classList.toggle("active", window.location.protocol === "file:");
             setupNavigation();
             setupHeroScroll();
