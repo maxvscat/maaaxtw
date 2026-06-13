@@ -92,52 +92,36 @@
         .hero-stage {
             position: absolute;
             inset: 0;
-            display: grid;
-            grid-template-columns: repeat(4, minmax(180px, 1fr));
-            gap: 14px;
-            padding: 92px 24px 24px;
-            opacity: 0.74;
-            transform: scale(1.04);
-        }
-
-        .film-strip {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            will-change: transform;
-        }
-
-        .film-frame {
-            position: relative;
-            min-height: 220px;
+            opacity: 1;
             overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: #181818;
         }
 
-        .film-frame.tall { min-height: 330px; }
-        .film-frame img {
+        .hero-frame {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .hero-frame.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hero-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(0.92) contrast(1.06);
-            transform: scale(1.02);
-        }
-
-        .film-frame::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.54));
+            filter: saturate(1.08) contrast(1.04) brightness(1.12);
         }
 
         .hero-shade {
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.78) 72%),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.74));
+                radial-gradient(circle at 54% 48%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.34) 76%),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.24));
         }
 
         .step-indicator {
@@ -350,26 +334,17 @@
         }
 
         @media (max-width: 1024px) {
-            .hero-stage {
-                grid-template-columns: repeat(3, minmax(150px, 1fr));
-                padding-inline: 16px;
-            }
-            .hero-stage .film-strip:nth-child(4) { display: none; }
             .work-grid .video-card,
             .work-grid .video-card.vertical { grid-column: span 6; }
         }
 
         @media (max-width: 720px) {
             .pin-container { min-height: 720px; }
-            .hero-stage {
-                grid-template-columns: repeat(2, minmax(120px, 1fr));
-                gap: 10px;
-                padding: 82px 10px 16px;
-                opacity: 0.62;
+            .hero-shade {
+                background:
+                    radial-gradient(circle at 52% 42%, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.36) 78%),
+                    linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.26));
             }
-            .hero-stage .film-strip:nth-child(3) { display: none; }
-            .film-frame { min-height: 170px; }
-            .film-frame.tall { min-height: 240px; }
             .hero-copy {
                 display: grid;
                 grid-template-rows: 18px 156px 64px 48px;
@@ -431,26 +406,18 @@
     <div id="pageHome" class="view-page active">
         <header id="home" class="pin-container">
             <div class="hero-stage" aria-hidden="true">
-                <div class="film-strip strip-a">
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-01.jpg" alt=""></div>
-                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-02.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-03.jpg" alt=""></div>
-                </div>
-                <div class="film-strip strip-b">
-                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-04.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-05.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-06.jpg" alt=""></div>
-                </div>
-                <div class="film-strip strip-c">
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-07.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-08.jpg" alt=""></div>
-                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-09.jpg" alt=""></div>
-                </div>
-                <div class="film-strip strip-d">
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-10.jpg" alt=""></div>
-                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-11.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero-cinematic/hero-12.jpg" alt=""></div>
-                </div>
+                <div class="hero-frame active"><img src="assets/hero-sequence/frame-01.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-02.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-03.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-04.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-05.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-06.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-07.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-08.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-09.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-10.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-11.jpg" alt=""></div>
+                <div class="hero-frame"><img src="assets/hero-sequence/frame-12.jpg" alt=""></div>
             </div>
             <div class="hero-shade"></div>
 
@@ -888,12 +855,29 @@
             if (heroScrollReady) return;
             heroScrollReady = true;
             const indicator = document.getElementById("stepIndicator");
+            const frames = Array.from(document.querySelectorAll(".hero-frame"));
+            frames.forEach(frame => {
+                const image = frame.querySelector("img");
+                if (!image) return;
+                const preload = new Image();
+                preload.src = image.currentSrc || image.src;
+                if (preload.decode) preload.decode().catch(() => {});
+            });
             indicator.innerHTML = "";
             heroScenes.forEach((_, index) => {
                 const dot = document.createElement("div");
                 dot.className = `step-dot ${index === 0 ? "active" : ""}`;
                 indicator.appendChild(dot);
             });
+
+            let currentFrameIndex = 0;
+            const setFrame = index => {
+                if (index === currentFrameIndex) return;
+                currentFrameIndex = index;
+                frames.forEach((frame, frameIndex) => {
+                    frame.classList.toggle("active", frameIndex === index);
+                });
+            };
 
             const setScene = index => {
                 const scene = heroScenes[index];
@@ -907,27 +891,21 @@
 
             if (!window.gsap || !window.ScrollTrigger) return;
             gsap.registerPlugin(ScrollTrigger);
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#home",
-                    start: "top top",
-                    end: "+=2400",
-                    scrub: 0.75,
-                    pin: true,
-                    anticipatePin: 1,
-                    onUpdate: self => {
-                        const index = Math.round(self.progress * (heroScenes.length - 1));
-                        setScene(index);
-                    }
+
+            ScrollTrigger.create({
+                trigger: "#home",
+                start: "top top",
+                end: "+=2400",
+                scrub: false,
+                pin: true,
+                anticipatePin: 1,
+                onUpdate: self => {
+                    const sceneIndex = Math.round(self.progress * (heroScenes.length - 1));
+                    const frameIndex = Math.round(self.progress * (frames.length - 1));
+                    setScene(sceneIndex);
+                    setFrame(frameIndex);
                 }
             });
-
-            timeline
-                .to(".strip-a", { yPercent: -28, duration: 1 }, 0)
-                .to(".strip-b", { yPercent: 24, duration: 1 }, 0)
-                .to(".strip-c", { yPercent: -34, duration: 1 }, 0)
-                .to(".strip-d", { yPercent: 18, duration: 1 }, 0)
-                .to(".hero-stage", { scale: 1.16, opacity: 0.46, duration: 1 }, 0);
         }
 
         function setupReveal() {
