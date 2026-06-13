@@ -481,7 +481,7 @@
                     <div class="mono-label mb-4">WORKS</div>
                     <h1 class="serif text-5xl font-black leading-tight md:text-7xl">作品集 Works</h1>
                     <p id="categoryIntro" class="mt-5 text-lg leading-8 text-neutral-300">
-                        這裡收錄舊作品集中的全部 YouTube 嵌入作品；可依類型篩選觀看。
+                        這裡收錄舊作品集中的 YouTube 嵌入作品；可依類型篩選觀看。
                     </p>
                 </div>
             </div>
@@ -526,29 +526,20 @@
 
     <script>
         const categoryData = [
+            { key: "program", label: "節目剪輯", intro: "節目、訪談與長型內容剪輯，整理資訊線、段落節奏與觀看流暢度。", videos: ids("節目剪輯", "wide", ["B_dvX8tfVfY", "1Jx-WUdLLYI", "gcIP51XjfLA", "25x5JeNA-eg", "i2fClioc2sg", "VH7aiJYjHxk", "RyiQk4kQ9cM", "Ieq2hOzhapk", "Qef_eayYpJk", "rv1Esq0JH4s", "tG6OffaoNo0", "sg_ptpU7Fow", "9Kr9UaCs11I", "UXsexCu71gA", "JjvH4oP_U80", "mqUyWMB-cv4", "MQgq8_K-grE", "lsPL6wEpNEc", "vQJQBZVEVjE", "y5Bb5woguJU", "sQD3f8rWt5Y", "fj3MTlHG034", "P7cwrrJAvFs", "5ma4MFx1kH4", "7WXBNHivN0U", "k7ZFT15wgkg", "U-64TYNWIrc"]) },
             { key: "product", label: "產品介紹", intro: "產品介紹類作品，重點放在資訊層次、功能節奏與畫面理解速度。", videos: ids("產品介紹", "wide", ["M_y2oiMH8JI", "OKfTS49F50M", "aFEivPEr7LM", "hEYGtCaKRw0"]) },
             { key: "brand", label: "企業品牌", intro: "企業與品牌形象影片，讓訊息、質感與信任感在短時間內成立。", videos: ids("企業品牌", "wide", ["eDG0-_nEXbw", "WgjaNbnOklA", "sfUliZwMHe8", "NectNxyCw80", "1ydoH79yqQE", "AL6-rTltOEE"]) },
             { key: "game", label: "遊戲宣傳", intro: "遊戲宣傳作品，強調節奏、亮點堆疊、角色與玩法的吸引力。", videos: [
                 ...ids("遊戲宣傳", "wide", ["mJzDx22AMFQ", "sJLAVGjKLuY", "dE6RsqvUz00", "eYYTn8WjKUY"]),
                 ...ids("遊戲宣傳", "vertical", ["-EyPnt0SKS4", "614I1ZWxgVY"])
             ] },
-            { key: "program", label: "節目剪輯", intro: "節目、訪談與長型內容剪輯，整理資訊線、段落節奏與觀看流暢度。", videos: ids("節目剪輯", "wide", ["B_dvX8tfVfY", "1Jx-WUdLLYI", "gcIP51XjfLA", "25x5JeNA-eg", "i2fClioc2sg", "VH7aiJYjHxk", "RyiQk4kQ9cM", "Ieq2hOzhapk", "Qef_eayYpJk", "rv1Esq0JH4s", "tG6OffaoNo0", "sg_ptpU7Fow", "9Kr9UaCs11I", "UXsexCu71gA", "JjvH4oP_U80", "mqUyWMB-cv4", "MQgq8_K-grE", "lsPL6wEpNEc", "vQJQBZVEVjE", "y5Bb5woguJU", "yHbw0ny2GA0", "sQD3f8rWt5Y", "K8ASlcauZ6I", "fj3MTlHG034", "P7cwrrJAvFs", "5ma4MFx1kH4", "7WXBNHivN0U", "k7ZFT15wgkg", "U-64TYNWIrc"]) },
-            { key: "shorts", label: "短影音", intro: "直式短影音作品，針對手機觀看、快速節奏與社群停留時間設計。", videos: ids("短影音", "vertical", ["xdLj0ni_hNg", "FUN6HKfKZvI", "IqCjD_hK6UY", "tESShYY1VBY", "WO14GC2l_fY", "8ASr_io7eNo", "FqYnSRuCwF0", "ACKdtqvte-E", "bCwa0STIoOA", "dV-HbfulL00", "3eHFRRycd4c", "svQ_vcZ2L4w", "B3S5THFhoGo", "0lE-9TaevjU", "jksr-6VmCb4", "npGNFTyZi-c", "r2VlrkY9Rm4", "sEpV9Kfi8AM", "7ajBfUQ6jUk", "pLeCcsKyL80", "zaKxtdAPUtE", "LfJkjG5pclw", "aMz9Hcs1OlM", "0tZkZJ426gk", "K_MbXWHJrPc", "GWvy7JT8GMQ", "DG-Ne6qhaH0", "ax60dpUN39g", "XBlLYriB4jw", "43bam2TfdPw", "1Cru9Z_zkRk", "U6qGks80LTg", "pBEpJ66Cyh0", "-CYc-qRFc3g", "-EyPnt0SKS4", "614I1ZWxgVY"]) },
+            { key: "shorts", label: "短影音", intro: "直式短影音作品，針對手機觀看、快速節奏與社群停留時間設計。", videos: ids("短影音", "vertical", ["xdLj0ni_hNg", "FUN6HKfKZvI", "IqCjD_hK6UY", "tESShYY1VBY", "WO14GC2l_fY", "8ASr_io7eNo", "FqYnSRuCwF0", "ACKdtqvte-E", "bCwa0STIoOA", "dV-HbfulL00", "3eHFRRycd4c", "svQ_vcZ2L4w", "B3S5THFhoGo", "0lE-9TaevjU", "jksr-6VmCb4", "npGNFTyZi-c", "r2VlrkY9Rm4", "sEpV9Kfi8AM", "7ajBfUQ6jUk", "pLeCcsKyL80", "zaKxtdAPUtE", "LfJkjG5pclw", "aMz9Hcs1OlM", "K_MbXWHJrPc", "GWvy7JT8GMQ", "DG-Ne6qhaH0", "ax60dpUN39g", "XBlLYriB4jw", "43bam2TfdPw", "1Cru9Z_zkRk", "U6qGks80LTg", "pBEpJ66Cyh0", "-CYc-qRFc3g", "-EyPnt0SKS4", "614I1ZWxgVY"]) },
             { key: "character", label: "人物動畫", intro: "人物動畫與角色型動態內容，補強溝通感、角色性與節奏變化。", videos: ids("人物動畫", "wide", ["L6bIQyFPuU8", "1wLb3J4RFVI", "lMwdCNuXVws", "IYrMhEcs9L4", "7BT11pABSaI"]) },
             { key: "twoD", label: "2D動畫", intro: "2D 動畫與 motion graphics，讓抽象資訊變成可觀看、可理解的畫面。", videos: ids("2D動畫", "wide", ["mXUz07kVwlQ", "TFO5G8gpe_Q", "-XiTpX4vQDA", "w_PE_kLH-u8", "P7cwrrJAvFs", "4tqygYnojYI"]) },
             { key: "threeD", label: "3D動畫", intro: "3D 動畫作品，透過空間、物件與鏡頭調度增加視覺記憶點。", videos: ids("3D動畫", "wide", ["5hRSKyXrrGE", "pB8qiywWRk8", "POKcEZ2pnxU", "QZ5XkDBilH4", "SH2sGEXeVpE", "RIITfmxmYcQ", "O2nhgQxO0ig", "KQNIcUdl6cQ"]) }
         ];
 
-        const allVideos = categoryData.flatMap(category => category.videos);
-        const categories = [
-            {
-                key: "all",
-                label: "全部",
-                intro: "這裡收錄舊作品集中的全部 YouTube 嵌入作品；可依類型篩選觀看。",
-                videos: allVideos
-            },
-            ...categoryData
-        ];
+        const categories = categoryData;
 
         const heroScenes = [
             { label: "PRODUCT FILM", title: "把產品亮點剪成清楚的觀看路徑。", text: "產品介紹需要的不只是漂亮畫面，而是讓觀眾快速理解價值。" },
@@ -598,9 +589,7 @@
             "lsPL6wEpNEc": "誠品行旅耶誕大餐介紹",
             "vQJQBZVEVjE": "A9K濕拖吸塵器好物開箱",
             "y5Bb5woguJU": "空氣清淨機選購教學",
-            "yHbw0ny2GA0": "節目剪輯作品",
             "sQD3f8rWt5Y": "周星馳電影台詞名場面大考問",
-            "K8ASlcauZ6I": "節目剪輯作品",
             "fj3MTlHG034": "看韓劇學英文",
             "P7cwrrJAvFs": "國中地理方位教學",
             "5ma4MFx1kH4": "幣安EP01",
@@ -630,7 +619,6 @@
             "zaKxtdAPUtE": "TSB元宇宙短影音",
             "LfJkjG5pclw": "澎沛短影音",
             "aMz9Hcs1OlM": "盛惠短影音",
-            "0tZkZJ426gk": "短影音作品",
             "K_MbXWHJrPc": "什麼是品牌？",
             "GWvy7JT8GMQ": "新竹農場短影音",
             "DG-Ne6qhaH0": "郭董EP04",
@@ -832,7 +820,7 @@
             });
             document.getElementById("stepIndicator").style.display = page === "home" ? "" : "none";
             window.scrollTo({ top: 0, behavior: "auto" });
-            if (isWork) setCategory("all");
+            if (isWork) setCategory(categories[0].key);
             if (page === "home") setupHeroScroll();
             if (window.ScrollTrigger) ScrollTrigger.refresh();
         }
