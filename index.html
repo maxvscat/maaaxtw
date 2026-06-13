@@ -302,6 +302,17 @@
             -webkit-line-clamp: 2;
         }
 
+        .video-meta-note {
+            display: -webkit-box;
+            overflow: hidden;
+            margin-top: 6px;
+            color: #d6d6cf;
+            font-size: 13px;
+            line-height: 1.5;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
         .play-mark {
             position: absolute;
             left: 50%;
@@ -421,24 +432,24 @@
         <header id="home" class="pin-container">
             <div class="hero-stage" aria-hidden="true">
                 <div class="film-strip strip-a">
-                    <div class="film-frame"><img src="assets/hero/hero-01.jpg" alt=""></div>
-                    <div class="film-frame tall"><img src="assets/hero/hero-02.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero/hero-03.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-01.jpg" alt=""></div>
+                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-02.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-03.jpg" alt=""></div>
                 </div>
                 <div class="film-strip strip-b">
-                    <div class="film-frame tall"><img src="assets/hero/hero-04.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero/hero-05.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero/hero-06.jpg" alt=""></div>
+                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-04.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-05.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-06.jpg" alt=""></div>
                 </div>
                 <div class="film-strip strip-c">
-                    <div class="film-frame"><img src="assets/hero/hero-07.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero/hero-08.jpg" alt=""></div>
-                    <div class="film-frame tall"><img src="assets/hero/hero-09.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-07.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-08.jpg" alt=""></div>
+                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-09.jpg" alt=""></div>
                 </div>
                 <div class="film-strip strip-d">
-                    <div class="film-frame"><img src="assets/hero/hero-10.jpg" alt=""></div>
-                    <div class="film-frame tall"><img src="assets/hero/hero-11.jpg" alt=""></div>
-                    <div class="film-frame"><img src="assets/hero/hero-12.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-10.jpg" alt=""></div>
+                    <div class="film-frame tall"><img src="assets/hero-cinematic/hero-11.jpg" alt=""></div>
+                    <div class="film-frame"><img src="assets/hero-cinematic/hero-12.jpg" alt=""></div>
                 </div>
             </div>
             <div class="hero-shade"></div>
@@ -741,6 +752,33 @@
             return video.category;
         }
 
+        function workDescription(video) {
+            const title = workTitle(video);
+            const label = workLabel(video);
+            const text = `${title} ${label} ${video.category}`.toLowerCase();
+
+            if (/企業簡介|公司介紹/.test(label)) return "整理企業核心訊息，剪出穩定、可信、好理解的品牌介紹節奏。";
+            if (/品牌故事|工作室形象|品牌形象/.test(label)) return "用畫面氛圍與段落節奏建立品牌個性，讓觀眾快速記住印象。";
+            if (/網站宣傳/.test(label)) return "把網站功能與服務亮點轉成清楚的動態展示，提升理解速度。";
+            if (/遊戲/.test(label)) return "強化玩法亮點、視覺節奏與情緒堆疊，讓宣傳片更有吸引力。";
+            if (/3D/.test(label)) return "以 3D 鏡頭、材質與空間調度呈現產品或概念的視覺記憶點。";
+            if (/2D/.test(label)) return "用圖像化段落、角色或 motion graphics，把資訊轉成容易觀看的動畫。";
+            if (/美食旅遊/.test(label)) return "整理場景動線、體驗亮點與情緒節奏，讓旅遊美食內容更好入口。";
+            if (/街訪|短新聞/.test(label)) return "抓出議題重點與訪談節奏，剪成適合快速觀看的新聞型內容。";
+            if (/醫療健康/.test(label)) return "把專業資訊剪成清楚段落，兼顧可信度、節奏與觀眾理解。";
+            if (/產品短影音/.test(label)) return "設計短秒數鉤子與重點字幕，快速帶出產品賣點與使用情境。";
+            if (/產品介紹/.test(label)) return "聚焦產品特色、功能與使用情境，剪出清楚的商業說明節奏。";
+            if (/活動紀錄/.test(label)) return "保留活動現場氛圍與關鍵時刻，整理成完整、有節奏的紀錄影片。";
+            if (/知識教學/.test(label)) return "拆解知識重點與段落順序，讓教學內容更清楚、更容易吸收。";
+            if (/開箱/.test(label)) return "安排產品展示、使用感與賣點節奏，讓開箱內容更有說服力。";
+            if (/宣傳/.test(label)) return "抓出主題亮點與情緒節奏，剪成適合曝光與導流的宣傳內容。";
+            if (/社群短影音/.test(label)) return "用快速開場、字幕節奏與重點排列，提升手機觀看停留。";
+            if (/投資|幣安|不動產|空氣清淨機|庫侖|地理|英文/.test(text)) return "把資訊重點重新排序，搭配字幕與段落節奏提升理解度。";
+            if (/飯店|旅遊|美食|農場/.test(text)) return "用場景切換和體驗重點，剪出有臨場感的介紹影片。";
+            if (/診所|醫|攝護腺|面膜|防曬|保養/.test(text)) return "將專業或產品資訊轉成親近、好懂的觀看節奏。";
+            return "負責素材整理、節奏剪輯與重點呈現，讓內容更清楚也更有觀看性。";
+        }
+
         function renderFilters(activeKey) {
             const filterWrap = document.getElementById("categoryFilters");
             filterWrap.innerHTML = categories.map(category => `
@@ -770,6 +808,7 @@
                         <div>
                             <div class="text-sm font-bold text-white">${escapeHtml(workLabel(video))}</div>
                             <div class="video-meta-title">${escapeHtml(workTitle(video))}</div>
+                            <div class="video-meta-note">${escapeHtml(workDescription(video))}</div>
                         </div>
                     </div>
                 </article>
