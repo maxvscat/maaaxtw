@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Max 的影像剪輯、動畫與商業影片作品集。">
+    <title>Max Portfolio | Motion Editing & Animation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #070707;
+            --paper: #f3f0ea;
+            --ink: #f7f7f2;
+            --line: rgba(255, 255, 255, 0.13);
+            --accent: #ff5f45;
+            --mint: #7ddac8;
+            --gold: #d7b46a;
+        }
+
+        * { box-sizing: border-box; letter-spacing: 0; }
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: "Inter", "Noto Sans TC", sans-serif;
+        }
+
+        .serif { font-family: "Noto Serif TC", serif; }
+        .view-page { display: none; }
+        .view-page.active { display: block; }
+
+        .glass-nav {
+            background: rgba(7, 7, 7, 0.82);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav-link.active { color: white; }
+
+        .protocol-warning {
+            position: fixed;
+            left: 50%;
+            top: 92px;
+            z-index: 120;
+            display: none;
+            max-width: min(680px, calc(100vw - 32px));
+            transform: translateX(-50%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 8px;
+            background: rgba(10, 10, 10, 0.92);
+            padding: 14px 18px;
+            color: #f6f6f0;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+            backdrop-filter: blur(16px);
+        }
+
+        .protocol-warning.active { display: block; }
+        .protocol-warning strong { color: var(--mint); }
+
+        .pin-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 680px;
+            overflow: hidden;
+            background: #050505;
+        }
+
+        .hero-stage {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(180px, 1fr));
+            gap: 14px;
+            padding: 92px 24px 24px;
+            opacity: 0.74;
+            transform: scale(1.04);
+        }
+
+        .film-strip {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            will-change: transform;
+        }
+
+        .film-frame {
+            position: relative;
+            min-height: 220px;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: #181818;
+        }
+
+        .film-frame.tall { min-height: 330px; }
+        .film-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.92) contrast(1.06);
+            transform: scale(1.02);
+        }
+
+        .film-frame::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.54));
+        }
+
+        .hero-shade {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.78) 72%),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.74));
+        }
+
+        .step-indicator {
+            position: fixed;
+            right: 22px;
+            top: 50%;
+            z-index: 90;
+            display: flex;
+            transform: translateY(-50%);
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.28);
+            transition: width 0.25s ease, background 0.25s ease;
+        }
+
+        .step-dot.active {
+            width: 28px;
+            background: var(--accent);
+        }
+
+        .mono-label {
+            font-size: 12px;
+            line-height: 1;
+            color: var(--mint);
+            font-weight: 800;
+        }
+
+        .dark-rule { border-top: 1px solid var(--line); }
+
+        .category-button {
+            min-height: 42px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cfcfc9;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0 16px;
+            font-size: 14px;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .category-button.active,
+        .category-button:hover {
+            background: var(--ink);
+            color: #070707;
+            border-color: var(--ink);
+        }
+
+        .video-card {
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #111;
+        }
+
+        .video-shell {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #050505;
+            overflow: hidden;
+        }
+
+        .video-card.vertical .video-shell {
+            aspect-ratio: 9 / 16;
+            max-height: 640px;
+        }
+
+        .video-shell iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-poster {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            cursor: pointer;
+            background: #111;
+            color: white;
+            text-align: left;
+        }
+
+        .video-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.78;
+            transition: transform 0.35s ease, opacity 0.35s ease;
+        }
+
+        .video-poster:hover img {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .video-poster::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.55));
+        }
+
+        .video-message {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+            text-align: center;
+            color: white;
+            background: #242424;
+        }
+
+        .video-message strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--mint);
+            font-size: 18px;
+        }
+
+        .play-mark {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 2;
+            display: grid;
+            width: 72px;
+            height: 72px;
+            place-items: center;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.94);
+            color: #050505;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .work-grid .video-card { grid-column: span 6; }
+        .work-grid .video-card.vertical { grid-column: span 3; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .hero-stage {
+                grid-template-columns: repeat(3, minmax(150px, 1fr));
+                padding-inline: 16px;
+            }
+            .hero-stage .film-strip:nth-child(4) { display: none; }
+            .work-grid .video-card,
+            .work-grid .video-card.vertical { grid-column: span 6; }
+        }
+
+        @media (max-width: 720px) {
+            .pin-container { min-height: 720px; }
+            .hero-stage {
+                grid-template-columns: repeat(2, minmax(120px, 1fr));
+                gap: 10px;
+                padding: 82px 10px 16px;
+                opacity: 0.62;
+            }
+            .hero-stage .film-strip:nth-child(3) { display: none; }
+            .film-frame { min-height: 170px; }
+            .film-frame.tall { min-height: 240px; }
+            .step-indicator { display: none; }
+            .work-grid { gap: 14px; }
+            .work-grid .video-card,
+            .work-grid .video-card.vertical { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="fixed top-0 z-[100] w-full glass-nav">
+        <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
+            <button type="button" class="flex items-center gap-3 font-black" data-page-link="home">
+                <span class="grid h-9 w-9 place-items-center rounded-full bg-white text-sm text-black">M</span>
+                <span>MAX PORTFOLIO</span>
+            </button>
+            <div class="hidden items-center gap-8 text-sm text-neutral-300 md:flex">
+                <button type="button" class="nav-link hover:text-white" data-page-link="work">作品</button>
+                <button type="button" class="nav-link hover:text-white" data-scroll-link="process">專長</button>
+                <button type="button" class="nav-link hover:text-white" data-scroll-link="contact">聯絡</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="protocolWarning" class="protocol-warning" role="status">
+        <strong>請用 localhost 預覽作品頁。</strong>
+        目前是直接用檔案開啟，YouTube 會因為沒有正常網頁來源而阻擋嵌入播放。請雙擊專案裡的 <span class="font-bold">start-local-server.bat</span>，再開啟 <span class="font-bold">http://127.0.0.1:4173/</span>。
+    </div>
+
+    <div class="step-indicator" id="stepIndicator" aria-hidden="true"></div>
+
+    <div id="pageHome" class="view-page active">
+        <header id="home" class="pin-container">
+            <div class="hero-stage" aria-hidden="true">
+                <div class="film-strip strip-a">
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/M_y2oiMH8JI/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame tall"><img src="https://i.ytimg.com/vi/xdLj0ni_hNg/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/eDG0-_nEXbw/hqdefault.jpg" alt=""></div>
+                </div>
+                <div class="film-strip strip-b">
+                    <div class="film-frame tall"><img src="https://i.ytimg.com/vi/FUN6HKfKZvI/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/mJzDx22AMFQ/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/B_dvX8tfVfY/hqdefault.jpg" alt=""></div>
+                </div>
+                <div class="film-strip strip-c">
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/L6bIQyFPuU8/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/mXUz07kVwlQ/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame tall"><img src="https://i.ytimg.com/vi/IqCjD_hK6UY/hqdefault.jpg" alt=""></div>
+                </div>
+                <div class="film-strip strip-d">
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/5hRSKyXrrGE/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame tall"><img src="https://i.ytimg.com/vi/tESShYY1VBY/hqdefault.jpg" alt=""></div>
+                    <div class="film-frame"><img src="https://i.ytimg.com/vi/WgjaNbnOklA/hqdefault.jpg" alt=""></div>
+                </div>
+            </div>
+            <div class="hero-shade"></div>
+
+            <div class="relative z-10 mx-auto flex h-full max-w-7xl items-center px-5 pt-20 md:px-8">
+                <div class="max-w-4xl">
+                    <div id="stepText" class="mono-label mb-5">SCENE 01 / PRODUCT FILM</div>
+                    <h1 id="heroTitle" class="serif text-5xl font-black leading-[1.05] text-white md:text-7xl lg:text-8xl">
+                        讓節奏、畫面與資訊<br class="hidden md:block">剪成能被記住的故事。
+                    </h1>
+                    <p id="heroPara" class="mt-7 max-w-2xl text-lg leading-8 text-neutral-200 md:text-xl">
+                        我是 Max，專注於影片剪輯、遊戲與品牌宣傳、訪談節目、短影音，以及 2D / 3D 動態視覺。
+                    </p>
+                    <div class="mt-10 flex flex-wrap gap-3">
+                        <button type="button" data-page-link="work" class="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black hover:bg-[var(--mint)]">
+                            <i data-lucide="play" class="h-4 w-4"></i>
+                            看作品
+                        </button>
+                        <button type="button" data-scroll-link="contact" class="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 px-6 text-sm font-bold text-white hover:border-white">
+                            <i data-lucide="send" class="h-4 w-4"></i>
+                            聯絡合作
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="bg-[var(--paper)] px-5 py-20 text-[#161616] md:px-8 md:py-28">
+                <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+                    <div class="reveal">
+                        <div class="mono-label mb-4 text-[#b24635]">SHOWREEL MAP</div>
+                        <h2 class="serif text-4xl font-black leading-tight md:text-6xl">把舊作品整理成更好瀏覽的節奏。</h2>
+                    </div>
+                    <p class="reveal text-lg leading-9 text-neutral-700">
+                        舊作品集中的 YouTube 作品已依內容分成產品介紹、企業品牌、遊戲宣傳、節目剪輯、短影音、人物動畫、2D 動畫與 3D 動畫。點右上角「作品」即可進入完整作品頁。
+                    </p>
+                </div>
+            </section>
+
+            <section id="process" class="dark-rule px-5 py-20 md:px-8 md:py-28">
+                <div class="mx-auto grid max-w-7xl gap-12 md:grid-cols-[0.8fr_1.2fr]">
+                    <div class="reveal">
+                        <div class="mono-label mb-4">WHAT I DO</div>
+                        <h2 class="serif text-4xl font-black leading-tight md:text-6xl">從資訊整理到情緒節奏。</h2>
+                    </div>
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="reveal border-t border-white/15 pt-6">
+                            <h3 class="mb-3 text-xl font-black text-white">剪輯與敘事</h3>
+                            <p class="leading-8 text-neutral-400">訪談、節目、街訪、美食與實驗型內容，讓素材有清楚段落，也保留觀看的呼吸。</p>
+                        </div>
+                        <div class="reveal border-t border-white/15 pt-6">
+                            <h3 class="mb-3 text-xl font-black text-white">品牌與宣傳</h3>
+                            <p class="leading-8 text-neutral-400">企業形象、產品介紹、遊戲宣傳，著重訊息傳達、視覺質感與平台節奏。</p>
+                        </div>
+                        <div class="reveal border-t border-white/15 pt-6">
+                            <h3 class="mb-3 text-xl font-black text-white">短影音節奏</h3>
+                            <p class="leading-8 text-neutral-400">直式影片、快速鉤子、節奏壓縮與重點字幕，讓觀看者更快進入內容。</p>
+                        </div>
+                        <div class="reveal border-t border-white/15 pt-6">
+                            <h3 class="mb-3 text-xl font-black text-white">動畫與動態視覺</h3>
+                            <p class="leading-8 text-neutral-400">人物動畫、2D / 3D 動態元素，補足資訊、風格與影片記憶點。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="pageWork" class="view-page min-h-screen px-5 pb-20 pt-32 md:px-8">
+        <main class="mx-auto max-w-7xl">
+            <div class="mb-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+                <div class="max-w-3xl">
+                    <div class="mono-label mb-4">WORKS</div>
+                    <h1 class="serif text-5xl font-black leading-tight md:text-7xl">作品集 Works</h1>
+                    <p id="categoryIntro" class="mt-5 text-lg leading-8 text-neutral-300">
+                        這裡收錄舊作品集中的全部 YouTube 嵌入作品；可依類型篩選觀看。
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div id="totalCount" class="text-3xl font-black text-white">100</div>
+                        <div class="text-sm text-neutral-500">YouTube 作品</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-white">8</div>
+                        <div class="text-sm text-neutral-500">內容分類</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-white">0MB</div>
+                        <div class="text-sm text-neutral-500">本地影片空間</div>
+                    </div>
+                </div>
+            </div>
+            <div id="categoryFilters" class="mb-8 flex gap-3 overflow-x-auto pb-2"></div>
+            <div id="videoGrid" class="work-grid"></div>
+        </main>
+    </div>
+
+    <footer id="contact" class="bg-[#0b0b0b] px-5 py-16 md:px-8">
+        <div class="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div>
+                <div class="mono-label mb-4">CONTACT</div>
+                <h2 class="serif text-4xl font-black">有影片需要被整理成故事嗎？</h2>
+                <p class="mt-4 max-w-xl leading-8 text-neutral-400">歡迎從舊站聯絡頁或你慣用的方式找我聊聊合作方向。</p>
+            </div>
+            <a href="https://maaax.myportfolio.com/contact" target="_blank" rel="noreferrer" class="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black hover:bg-[var(--gold)]">
+                <i data-lucide="external-link" class="h-4 w-4"></i>
+                前往聯絡頁
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const categoryData = [
+            { key: "product", label: "產品介紹", intro: "產品介紹類作品，重點放在資訊層次、功能節奏與畫面理解速度。", videos: ids("產品介紹", "wide", ["M_y2oiMH8JI", "OKfTS49F50M", "aFEivPEr7LM", "hEYGtCaKRw0"]) },
+            { key: "brand", label: "企業品牌", intro: "企業與品牌形象影片，讓訊息、質感與信任感在短時間內成立。", videos: ids("企業品牌", "wide", ["eDG0-_nEXbw", "WgjaNbnOklA", "sfUliZwMHe8", "NectNxyCw80", "1ydoH79yqQE", "AL6-rTltOEE"]) },
+            { key: "game", label: "遊戲宣傳", intro: "遊戲宣傳作品，強調節奏、亮點堆疊、角色與玩法的吸引力。", videos: [
+                ...ids("遊戲宣傳", "wide", ["mJzDx22AMFQ", "sJLAVGjKLuY", "dE6RsqvUz00", "eYYTn8WjKUY"]),
+                ...ids("遊戲宣傳", "vertical", ["-EyPnt0SKS4", "614I1ZWxgVY"])
+            ] },
+            { key: "program", label: "節目剪輯", intro: "節目、訪談與長型內容剪輯，整理資訊線、段落節奏與觀看流暢度。", videos: ids("節目剪輯", "wide", ["B_dvX8tfVfY", "1Jx-WUdLLYI", "gcIP51XjfLA", "25x5JeNA-eg", "i2fClioc2sg", "VH7aiJYjHxk", "RyiQk4kQ9cM", "Ieq2hOzhapk", "Qef_eayYpJk", "rv1Esq0JH4s", "tG6OffaoNo0", "sg_ptpU7Fow", "9Kr9UaCs11I", "UXsexCu71gA", "JjvH4oP_U80", "mqUyWMB-cv4", "MQgq8_K-grE", "lsPL6wEpNEc", "vQJQBZVEVjE", "y5Bb5woguJU", "yHbw0ny2GA0", "sQD3f8rWt5Y", "K8ASlcauZ6I", "fj3MTlHG034", "P7cwrrJAvFs", "5ma4MFx1kH4", "7WXBNHivN0U", "k7ZFT15wgkg", "U-64TYNWIrc"]) },
+            { key: "shorts", label: "短影音", intro: "直式短影音作品，針對手機觀看、快速節奏與社群停留時間設計。", videos: ids("短影音", "vertical", ["xdLj0ni_hNg", "FUN6HKfKZvI", "IqCjD_hK6UY", "tESShYY1VBY", "WO14GC2l_fY", "8ASr_io7eNo", "FqYnSRuCwF0", "ACKdtqvte-E", "bCwa0STIoOA", "dV-HbfulL00", "3eHFRRycd4c", "svQ_vcZ2L4w", "B3S5THFhoGo", "0lE-9TaevjU", "jksr-6VmCb4", "npGNFTyZi-c", "r2VlrkY9Rm4", "sEpV9Kfi8AM", "7ajBfUQ6jUk", "pLeCcsKyL80", "zaKxtdAPUtE", "LfJkjG5pclw", "aMz9Hcs1OlM", "0tZkZJ426gk", "K_MbXWHJrPc", "GWvy7JT8GMQ", "DG-Ne6qhaH0", "ax60dpUN39g", "XBlLYriB4jw", "43bam2TfdPw", "1Cru9Z_zkRk", "U6qGks80LTg", "pBEpJ66Cyh0", "-CYc-qRFc3g", "-EyPnt0SKS4", "614I1ZWxgVY"]) },
+            { key: "character", label: "人物動畫", intro: "人物動畫與角色型動態內容，補強溝通感、角色性與節奏變化。", videos: ids("人物動畫", "wide", ["L6bIQyFPuU8", "1wLb3J4RFVI", "lMwdCNuXVws", "IYrMhEcs9L4", "7BT11pABSaI"]) },
+            { key: "twoD", label: "2D動畫", intro: "2D 動畫與 motion graphics，讓抽象資訊變成可觀看、可理解的畫面。", videos: ids("2D動畫", "wide", ["mXUz07kVwlQ", "TFO5G8gpe_Q", "-XiTpX4vQDA", "w_PE_kLH-u8", "P7cwrrJAvFs", "4tqygYnojYI"]) },
+            { key: "threeD", label: "3D動畫", intro: "3D 動畫作品，透過空間、物件與鏡頭調度增加視覺記憶點。", videos: ids("3D動畫", "wide", ["5hRSKyXrrGE", "pB8qiywWRk8", "POKcEZ2pnxU", "QZ5XkDBilH4", "SH2sGEXeVpE", "RIITfmxmYcQ", "O2nhgQxO0ig", "KQNIcUdl6cQ"]) }
+        ];
+
+        const allVideos = categoryData.flatMap(category => category.videos);
+        const categories = [
+            {
+                key: "all",
+                label: "全部",
+                intro: "這裡收錄舊作品集中的全部 YouTube 嵌入作品；可依類型篩選觀看。",
+                videos: allVideos
+            },
+            ...categoryData
+        ];
+
+        const heroScenes = [
+            { label: "SCENE 01 / PRODUCT FILM", title: "把產品亮點剪成清楚的觀看路徑。", text: "產品介紹需要的不只是漂亮畫面，而是讓觀眾快速理解價值。" },
+            { label: "SCENE 02 / BRAND IMAGE", title: "品牌影片要讓質感先說話。", text: "企業形象與商業宣傳，重點在穩定、可信、好記。" },
+            { label: "SCENE 03 / GAME TRAILER", title: "用節奏把遊戲的爽感推到眼前。", text: "玩法、角色、世界觀與情緒，都需要在短時間內被看見。" },
+            { label: "SCENE 04 / PROGRAM EDIT", title: "長內容，也能剪出清楚的呼吸。", text: "訪談與節目剪輯重視資訊線、轉折與觀看耐心。" },
+            { label: "SCENE 05 / SHORT FORM", title: "直式短影音讓第一秒負責留下觀眾。", text: "快速鉤子、字幕節奏與重點排列，是手機觀看的語言。" },
+            { label: "SCENE 06 / MOTION DESIGN", title: "用動畫與空間感補上記憶點。", text: "人物動畫、2D 與 3D motion，讓資訊更有表情與層次。" }
+        ];
+
+        let heroScrollReady = false;
+
+        function ids(category, orientation, list) {
+            return list.map(id => ({ id, category, orientation }));
+        }
+
+        function embedUrl(id) {
+            const params = new URLSearchParams({
+                autoplay: "1",
+                rel: "0",
+                modestbranding: "1",
+                playsinline: "1"
+            });
+            if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+                params.set("origin", window.location.origin);
+            }
+            return `https://www.youtube.com/embed/${id}?${params.toString()}`;
+        }
+
+        function thumbUrl(id) {
+            return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        }
+
+        function renderFilters(activeKey) {
+            const filterWrap = document.getElementById("categoryFilters");
+            filterWrap.innerHTML = categories.map(category => `
+                <button class="category-button ${category.key === activeKey ? "active" : ""}" type="button" data-key="${category.key}">
+                    ${category.label}
+                </button>
+            `).join("");
+
+            filterWrap.querySelectorAll("button").forEach(button => {
+                button.addEventListener("click", () => setCategory(button.dataset.key));
+            });
+        }
+
+        function renderVideos(category) {
+            const grid = document.getElementById("videoGrid");
+            grid.innerHTML = category.videos.map((video, index) => `
+                <article class="video-card ${video.orientation === "vertical" ? "vertical" : ""}">
+                    <div class="video-shell" data-video-id="${video.id}">
+                        <button type="button" class="video-poster" data-play-video="${video.id}" aria-label="播放 ${video.category} 作品 ${index + 1}">
+                            <img src="${thumbUrl(video.id)}" alt="${video.category} 作品縮圖" loading="lazy">
+                            <span class="play-mark">
+                                <i data-lucide="play" class="h-8 w-8"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 border-t border-white/10 px-4 py-3">
+                        <div>
+                            <div class="text-sm font-bold text-white">${video.category}</div>
+                            <div class="text-xs text-neutral-500">點擊縮圖在頁面內播放</div>
+                        </div>
+                    </div>
+                </article>
+            `).join("");
+            grid.querySelectorAll("[data-play-video]").forEach(button => {
+                button.addEventListener("click", () => playVideo(button));
+            });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function playVideo(button) {
+            const id = button.dataset.playVideo;
+            const shell = button.closest(".video-shell");
+            if (window.location.protocol === "file:") {
+                shell.innerHTML = `
+                    <div class="video-message">
+                        <div>
+                            <strong>目前是 file:// 預覽</strong>
+                            <p>請用 start-local-server.bat 開啟 localhost，YouTube 才能在頁面內播放。</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById("protocolWarning").classList.add("active");
+                return;
+            }
+            shell.innerHTML = `
+                <iframe
+                    width="560"
+                    height="315"
+                    src="${embedUrl(id)}"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+            `;
+        }
+
+        function setCategory(key) {
+            const category = categories.find(item => item.key === key) || categories[0];
+            document.getElementById("categoryIntro").textContent = category.intro;
+            renderFilters(category.key);
+            renderVideos(category);
+        }
+
+        function showPage(page) {
+            const isWork = page === "work";
+            document.getElementById("pageHome").classList.toggle("active", !isWork);
+            document.getElementById("pageWork").classList.toggle("active", isWork);
+            document.querySelectorAll(".nav-link").forEach(link => {
+                link.classList.toggle("active", link.dataset.pageLink === page);
+            });
+            document.getElementById("stepIndicator").style.display = isWork ? "none" : "";
+            window.scrollTo({ top: 0, behavior: "auto" });
+            if (isWork) setCategory("all");
+            if (!isWork) setupHeroScroll();
+            if (window.ScrollTrigger) ScrollTrigger.refresh();
+        }
+
+        function setupNavigation() {
+            document.querySelectorAll("[data-page-link]").forEach(button => {
+                button.addEventListener("click", () => showPage(button.dataset.pageLink));
+            });
+            document.querySelectorAll("[data-scroll-link]").forEach(button => {
+                button.addEventListener("click", () => {
+                    showPage("home");
+                    requestAnimationFrame(() => {
+                        document.getElementById(button.dataset.scrollLink).scrollIntoView({ behavior: "smooth" });
+                    });
+                });
+            });
+        }
+
+        function setupHeroScroll() {
+            if (heroScrollReady) return;
+            heroScrollReady = true;
+            const indicator = document.getElementById("stepIndicator");
+            indicator.innerHTML = "";
+            heroScenes.forEach((_, index) => {
+                const dot = document.createElement("div");
+                dot.className = `step-dot ${index === 0 ? "active" : ""}`;
+                indicator.appendChild(dot);
+            });
+
+            const setScene = index => {
+                const scene = heroScenes[index];
+                document.getElementById("stepText").textContent = scene.label;
+                document.getElementById("heroTitle").innerHTML = scene.title;
+                document.getElementById("heroPara").textContent = scene.text;
+                document.querySelectorAll(".step-dot").forEach((dot, dotIndex) => {
+                    dot.classList.toggle("active", dotIndex === index);
+                });
+            };
+
+            if (!window.gsap || !window.ScrollTrigger) return;
+            gsap.registerPlugin(ScrollTrigger);
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#home",
+                    start: "top top",
+                    end: "+=2400",
+                    scrub: 0.75,
+                    pin: true,
+                    anticipatePin: 1,
+                    onUpdate: self => {
+                        const index = Math.round(self.progress * (heroScenes.length - 1));
+                        setScene(index);
+                    }
+                }
+            });
+
+            timeline
+                .to(".strip-a", { yPercent: -28, duration: 1 }, 0)
+                .to(".strip-b", { yPercent: 24, duration: 1 }, 0)
+                .to(".strip-c", { yPercent: -34, duration: 1 }, 0)
+                .to(".strip-d", { yPercent: 18, duration: 1 }, 0)
+                .to(".hero-stage", { scale: 1.16, opacity: 0.46, duration: 1 }, 0)
+                .to("#heroTitle", { y: -18, duration: 1 }, 0)
+                .to("#heroPara", { y: 18, duration: 1 }, 0);
+        }
+
+        function setupReveal() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add("in-view");
+                });
+            }, { threshold: 0.14 });
+            document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("totalCount").textContent = allVideos.length;
+            document.getElementById("protocolWarning").classList.toggle("active", window.location.protocol === "file:");
+            setupNavigation();
+            setupHeroScroll();
+            setupReveal();
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
