@@ -526,20 +526,123 @@
 
     <script>
         const categoryData = [
-            { key: "program", label: "節目剪輯", intro: "節目、訪談與長型內容剪輯，整理資訊線、段落節奏與觀看流暢度。", videos: ids("節目剪輯", "wide", ["B_dvX8tfVfY", "1Jx-WUdLLYI", "gcIP51XjfLA", "25x5JeNA-eg", "i2fClioc2sg", "VH7aiJYjHxk", "RyiQk4kQ9cM", "Ieq2hOzhapk", "Qef_eayYpJk", "rv1Esq0JH4s", "tG6OffaoNo0", "sg_ptpU7Fow", "9Kr9UaCs11I", "UXsexCu71gA", "JjvH4oP_U80", "mqUyWMB-cv4", "MQgq8_K-grE", "lsPL6wEpNEc", "vQJQBZVEVjE", "y5Bb5woguJU", "sQD3f8rWt5Y", "fj3MTlHG034", "P7cwrrJAvFs", "5ma4MFx1kH4", "7WXBNHivN0U", "k7ZFT15wgkg", "U-64TYNWIrc"]) },
-            { key: "product", label: "產品介紹", intro: "產品介紹類作品，重點放在資訊層次、功能節奏與畫面理解速度。", videos: ids("產品介紹", "wide", ["M_y2oiMH8JI", "OKfTS49F50M", "aFEivPEr7LM", "hEYGtCaKRw0"]) },
-            { key: "brand", label: "企業品牌", intro: "企業與品牌形象影片，讓訊息、質感與信任感在短時間內成立。", videos: ids("企業品牌", "wide", ["eDG0-_nEXbw", "WgjaNbnOklA", "sfUliZwMHe8", "NectNxyCw80", "1ydoH79yqQE", "AL6-rTltOEE"]) },
-            { key: "game", label: "遊戲宣傳", intro: "遊戲宣傳作品，強調節奏、亮點堆疊、角色與玩法的吸引力。", videos: [
-                ...ids("遊戲宣傳", "wide", ["mJzDx22AMFQ", "sJLAVGjKLuY", "dE6RsqvUz00", "eYYTn8WjKUY"]),
-                ...ids("遊戲宣傳", "vertical", ["-EyPnt0SKS4", "614I1ZWxgVY"])
+            { key: "program", label: "節目剪輯", intro: "節目、訪談與長型內容剪輯，整理資訊線、段落節奏與觀看流暢度。", videos: [
+                { id: "z8negODu0Lc", category: "節目剪輯", orientation: "wide" },
+                { id: "B_dvX8tfVfY", category: "節目剪輯", orientation: "wide" },
+                { id: "1Jx-WUdLLYI", category: "節目剪輯", orientation: "wide" },
+                { id: "gcIP51XjfLA", category: "節目剪輯", orientation: "wide" },
+                { id: "25x5JeNA-eg", category: "節目剪輯", orientation: "wide" },
+                { id: "i2fClioc2sg", category: "節目剪輯", orientation: "wide" },
+                { id: "VH7aiJYjHxk", category: "節目剪輯", orientation: "wide" },
+                { id: "RyiQk4kQ9cM", category: "節目剪輯", orientation: "wide" },
+                { id: "Ieq2hOzhapk", category: "節目剪輯", orientation: "wide" },
+                { id: "Qef_eayYpJk", category: "節目剪輯", orientation: "wide" },
+                { id: "rv1Esq0JH4s", category: "節目剪輯", orientation: "wide" },
+                { id: "tG6OffaoNo0", category: "節目剪輯", orientation: "wide" },
+                { id: "sg_ptpU7Fow", category: "節目剪輯", orientation: "wide" },
+                { id: "9Kr9UaCs11I", category: "節目剪輯", orientation: "wide" },
+                { id: "UXsexCu71gA", category: "節目剪輯", orientation: "wide" },
+                { id: "JjvH4oP_U80", category: "節目剪輯", orientation: "wide" },
+                { id: "mqUyWMB-cv4", category: "節目剪輯", orientation: "wide" },
+                { id: "MQgq8_K-grE", category: "節目剪輯", orientation: "wide" },
+                { id: "lsPL6wEpNEc", category: "節目剪輯", orientation: "wide" },
+                { id: "vQJQBZVEVjE", category: "節目剪輯", orientation: "wide" },
+                { id: "y5Bb5woguJU", category: "節目剪輯", orientation: "wide" },
+                { id: "sQD3f8rWt5Y", category: "節目剪輯", orientation: "wide" },
+                { id: "fj3MTlHG034", category: "節目剪輯", orientation: "wide" },
+                { id: "P7cwrrJAvFs", category: "節目剪輯", orientation: "wide" },
+                { id: "5ma4MFx1kH4", category: "節目剪輯", orientation: "wide" },
+                { id: "7WXBNHivN0U", category: "節目剪輯", orientation: "wide" },
+                { id: "k7ZFT15wgkg", category: "節目剪輯", orientation: "wide" },
+                { id: "U-64TYNWIrc", category: "節目剪輯", orientation: "wide" }
             ] },
-            { key: "shorts", label: "短影音", intro: "直式短影音作品，針對手機觀看、快速節奏與社群停留時間設計。", videos: ids("短影音", "vertical", ["xdLj0ni_hNg", "FUN6HKfKZvI", "IqCjD_hK6UY", "tESShYY1VBY", "WO14GC2l_fY", "8ASr_io7eNo", "FqYnSRuCwF0", "ACKdtqvte-E", "bCwa0STIoOA", "dV-HbfulL00", "3eHFRRycd4c", "svQ_vcZ2L4w", "B3S5THFhoGo", "0lE-9TaevjU", "jksr-6VmCb4", "npGNFTyZi-c", "r2VlrkY9Rm4", "sEpV9Kfi8AM", "7ajBfUQ6jUk", "pLeCcsKyL80", "zaKxtdAPUtE", "LfJkjG5pclw", "aMz9Hcs1OlM", "K_MbXWHJrPc", "GWvy7JT8GMQ", "DG-Ne6qhaH0", "ax60dpUN39g", "XBlLYriB4jw", "43bam2TfdPw", "1Cru9Z_zkRk", "U6qGks80LTg", "pBEpJ66Cyh0", "-CYc-qRFc3g", "-EyPnt0SKS4", "614I1ZWxgVY"]) },
-            { key: "character", label: "人物動畫", intro: "人物動畫與角色型動態內容，補強溝通感、角色性與節奏變化。", videos: ids("人物動畫", "wide", ["L6bIQyFPuU8", "1wLb3J4RFVI", "lMwdCNuXVws", "IYrMhEcs9L4", "7BT11pABSaI"]) },
-            { key: "twoD", label: "2D動畫", intro: "2D 動畫與 motion graphics，讓抽象資訊變成可觀看、可理解的畫面。", videos: ids("2D動畫", "wide", ["mXUz07kVwlQ", "TFO5G8gpe_Q", "-XiTpX4vQDA", "w_PE_kLH-u8", "P7cwrrJAvFs", "4tqygYnojYI"]) },
-            { key: "threeD", label: "3D動畫", intro: "3D 動畫作品，透過空間、物件與鏡頭調度增加視覺記憶點。", videos: ids("3D動畫", "wide", ["5hRSKyXrrGE", "pB8qiywWRk8", "POKcEZ2pnxU", "QZ5XkDBilH4", "SH2sGEXeVpE", "RIITfmxmYcQ", "O2nhgQxO0ig", "KQNIcUdl6cQ"]) }
+            { key: "product", label: "產品介紹", intro: "產品介紹類作品，重點放在資訊層次、功能節奏與畫面理解速度。", videos: [
+                { id: "M_y2oiMH8JI", category: "產品介紹", orientation: "wide" },
+                { id: "OKfTS49F50M", category: "產品介紹", orientation: "wide" },
+                { id: "aFEivPEr7LM", category: "產品介紹", orientation: "wide" },
+                { id: "hEYGtCaKRw0", category: "產品介紹", orientation: "wide" }
+            ] },
+            { key: "brand", label: "企業品牌", intro: "企業與品牌形象影片，讓訊息、質感與信任感在短時間內成立。", videos: [
+                { id: "eDG0-_nEXbw", category: "企業品牌", orientation: "wide" },
+                { id: "WgjaNbnOklA", category: "企業品牌", orientation: "wide" },
+                { id: "sfUliZwMHe8", category: "企業品牌", orientation: "wide" },
+                { id: "NectNxyCw80", category: "企業品牌", orientation: "wide" },
+                { id: "1ydoH79yqQE", category: "企業品牌", orientation: "wide" },
+                { id: "AL6-rTltOEE", category: "企業品牌", orientation: "wide" }
+            ] },
+            { key: "game", label: "遊戲宣傳", intro: "遊戲宣傳作品，強調節奏、亮點堆疊、角色與玩法的吸引力。", videos: [
+                { id: "mJzDx22AMFQ", category: "遊戲宣傳", orientation: "wide" },
+                { id: "sJLAVGjKLuY", category: "遊戲宣傳", orientation: "wide" },
+                { id: "dE6RsqvUz00", category: "遊戲宣傳", orientation: "wide" },
+                { id: "eYYTn8WjKUY", category: "遊戲宣傳", orientation: "wide" },
+                { id: "-EyPnt0SKS4", category: "遊戲宣傳", orientation: "vertical" },
+                { id: "614I1ZWxgVY", category: "遊戲宣傳", orientation: "vertical" }
+            ] },
+            { key: "shorts", label: "短影音", intro: "直式短影音作品，針對手機觀看、快速節奏與社群停留時間設計。", videos: [
+                { id: "xdLj0ni_hNg", category: "短影音", orientation: "vertical" },
+                { id: "FUN6HKfKZvI", category: "短影音", orientation: "vertical" },
+                { id: "IqCjD_hK6UY", category: "短影音", orientation: "vertical" },
+                { id: "tESShYY1VBY", category: "短影音", orientation: "vertical" },
+                { id: "WO14GC2l_fY", category: "短影音", orientation: "vertical" },
+                { id: "8ASr_io7eNo", category: "短影音", orientation: "vertical" },
+                { id: "FqYnSRuCwF0", category: "短影音", orientation: "vertical" },
+                { id: "ACKdtqvte-E", category: "短影音", orientation: "vertical" },
+                { id: "bCwa0STIoOA", category: "短影音", orientation: "vertical" },
+                { id: "dV-HbfulL00", category: "短影音", orientation: "vertical" },
+                { id: "3eHFRRycd4c", category: "短影音", orientation: "vertical" },
+                { id: "svQ_vcZ2L4w", category: "短影音", orientation: "vertical" },
+                { id: "B3S5THFhoGo", category: "短影音", orientation: "vertical" },
+                { id: "0lE-9TaevjU", category: "短影音", orientation: "vertical" },
+                { id: "jksr-6VmCb4", category: "短影音", orientation: "vertical" },
+                { id: "npGNFTyZi-c", category: "短影音", orientation: "vertical" },
+                { id: "r2VlrkY9Rm4", category: "短影音", orientation: "vertical" },
+                { id: "sEpV9Kfi8AM", category: "短影音", orientation: "vertical" },
+                { id: "7ajBfUQ6jUk", category: "短影音", orientation: "vertical" },
+                { id: "pLeCcsKyL80", category: "短影音", orientation: "vertical" },
+                { id: "zaKxtdAPUtE", category: "短影音", orientation: "vertical" },
+                { id: "LfJkjG5pclw", category: "短影音", orientation: "vertical" },
+                { id: "aMz9Hcs1OlM", category: "短影音", orientation: "vertical" },
+                { id: "K_MbXWHJrPc", category: "短影音", orientation: "vertical" },
+                { id: "GWvy7JT8GMQ", category: "短影音", orientation: "vertical" },
+                { id: "DG-Ne6qhaH0", category: "短影音", orientation: "vertical" },
+                { id: "ax60dpUN39g", category: "短影音", orientation: "vertical" },
+                { id: "XBlLYriB4jw", category: "短影音", orientation: "vertical" },
+                { id: "43bam2TfdPw", category: "短影音", orientation: "vertical" },
+                { id: "1Cru9Z_zkRk", category: "短影音", orientation: "vertical" },
+                { id: "U6qGks80LTg", category: "短影音", orientation: "vertical" },
+                { id: "pBEpJ66Cyh0", category: "短影音", orientation: "vertical" },
+                { id: "-CYc-qRFc3g", category: "短影音", orientation: "vertical" },
+                { id: "-EyPnt0SKS4", category: "短影音", orientation: "vertical" },
+                { id: "614I1ZWxgVY", category: "短影音", orientation: "vertical" }
+            ] },
+            { key: "character", label: "人物動畫", intro: "人物動畫與角色型動態內容，補強溝通感、角色性與節奏變化。", videos: [
+                { id: "L6bIQyFPuU8", category: "人物動畫", orientation: "wide" },
+                { id: "1wLb3J4RFVI", category: "人物動畫", orientation: "wide" },
+                { id: "lMwdCNuXVws", category: "人物動畫", orientation: "wide" },
+                { id: "IYrMhEcs9L4", category: "人物動畫", orientation: "wide" },
+                { id: "7BT11pABSaI", category: "人物動畫", orientation: "wide" }
+            ] },
+            { key: "twoD", label: "2D動畫", intro: "2D 動畫與 motion graphics，讓抽象資訊變成可觀看、可理解的畫面。", videos: [
+                { id: "mXUz07kVwlQ", category: "2D動畫", orientation: "wide" },
+                { id: "TFO5G8gpe_Q", category: "2D動畫", orientation: "wide" },
+                { id: "-XiTpX4vQDA", category: "2D動畫", orientation: "wide" },
+                { id: "w_PE_kLH-u8", category: "2D動畫", orientation: "wide" },
+                { id: "P7cwrrJAvFs", category: "2D動畫", orientation: "wide" },
+                { id: "4tqygYnojYI", category: "2D動畫", orientation: "wide" }
+            ] },
+            { key: "threeD", label: "3D動畫", intro: "3D 動畫作品，透過空間、物件與鏡頭調度增加視覺記憶點。", videos: [
+                { id: "5hRSKyXrrGE", category: "3D動畫", orientation: "wide" },
+                { id: "pB8qiywWRk8", category: "3D動畫", orientation: "wide" },
+                { id: "POKcEZ2pnxU", category: "3D動畫", orientation: "wide" },
+                { id: "QZ5XkDBilH4", category: "3D動畫", orientation: "wide" },
+                { id: "SH2sGEXeVpE", category: "3D動畫", orientation: "wide" },
+                { id: "RIITfmxmYcQ", category: "3D動畫", orientation: "wide" },
+                { id: "O2nhgQxO0ig", category: "3D動畫", orientation: "wide" },
+                { id: "KQNIcUdl6cQ", category: "3D動畫", orientation: "wide" }
+            ] }
         ];
 
-        const categories = categoryData;
+const categories = categoryData;
 
         const heroScenes = [
             { label: "PRODUCT FILM", title: "把產品亮點剪成清楚的觀看路徑。", text: "產品介紹需要的不只是漂亮畫面，而是讓觀眾快速理解價值。" },
@@ -551,24 +654,10 @@
         ];
 
         let heroScrollReady = false;
-
+        const youtubeLabels = {
+        };
         const youtubeTitles = {
-            "M_y2oiMH8JI": "20170418火山甘露茶",
-            "OKfTS49F50M": "20161012Day'sTree草本潤色粉底乳",
-            "aFEivPEr7LM": "2012電購-包中包",
-            "hEYGtCaKRw0": "20220711 snug動畫 英文版3",
-            "eDG0-_nEXbw": "2014康園公司介紹影片",
-            "WgjaNbnOklA": "2015創辦人的精神",
-            "sfUliZwMHe8": "20220301 網銀企業簡介EN",
-            "NectNxyCw80": "光 工作室",
-            "1ydoH79yqQE": "TIDY網站宣傳動畫",
-            "AL6-rTltOEE": "閃電狼官網動畫",
-            "mJzDx22AMFQ": "麻將尬SLOT，一秒上桌就開打！ | 星城Online",
-            "sJLAVGjKLuY": "血月伯爵甦醒，擴張勢力建帝國 | 星城Online",
-            "dE6RsqvUz00": "彩虹寶庫開啟，倍率疊加彩金拿滿滿 | 星城Online",
-            "eYYTn8WjKUY": "滿貫大富豪開桌！神手自摸拿役滿 | 星城Online",
-            "-EyPnt0SKS4": "貓財神9:16",
-            "614I1ZWxgVY": "法蘭克9:16",
+            "z8negODu0Lc": "【手術介紹】腹部拉皮12大問題一次解答",
             "B_dvX8tfVfY": "投資快問快答",
             "1Jx-WUdLLYI": "愛打手槍會遲射？早洩如何鎖精？",
             "gcIP51XjfLA": "礁溪老爺酒店飯店開箱",
@@ -596,6 +685,22 @@
             "7WXBNHivN0U": "庫侖定律教學",
             "k7ZFT15wgkg": "歡樂慶元宵路跑",
             "U-64TYNWIrc": "后里福容飯店活動記錄",
+            "M_y2oiMH8JI": "20170418火山甘露茶",
+            "OKfTS49F50M": "20161012Day'sTree草本潤色粉底乳",
+            "aFEivPEr7LM": "2012電購-包中包",
+            "hEYGtCaKRw0": "20220711 snug動畫 英文版3",
+            "eDG0-_nEXbw": "2014康園公司介紹影片",
+            "WgjaNbnOklA": "2015創辦人的精神",
+            "sfUliZwMHe8": "20220301 網銀企業簡介EN",
+            "NectNxyCw80": "光 工作室",
+            "1ydoH79yqQE": "TIDY網站宣傳動畫",
+            "AL6-rTltOEE": "閃電狼官網動畫",
+            "mJzDx22AMFQ": "麻將尬SLOT，一秒上桌就開打！ | 星城Online",
+            "sJLAVGjKLuY": "血月伯爵甦醒，擴張勢力建帝國 | 星城Online",
+            "dE6RsqvUz00": "彩虹寶庫開啟，倍率疊加彩金拿滿滿 | 星城Online",
+            "eYYTn8WjKUY": "滿貫大富豪開桌！神手自摸拿役滿 | 星城Online",
+            "-EyPnt0SKS4": "貓財神9:16",
+            "614I1ZWxgVY": "法蘭克9:16",
             "xdLj0ni_hNg": "久站舒壓鞋墊短影音",
             "FUN6HKfKZvI": "兆聖0821",
             "IqCjD_hK6UY": "天堂PK宣傳",
@@ -648,8 +753,10 @@
             "O2nhgQxO0ig": "3D工廠0704",
             "KQNIcUdl6cQ": "黃仁勳片頭動畫"
         };
+        const youtubeDescriptions = {
+        };
 
-        function ids(category, orientation, list) {
+function ids(category, orientation, list) {
             return list.map(id => ({ id, category, orientation }));
         }
 
@@ -684,6 +791,7 @@
         }
 
         function workLabel(video) {
+            if (youtubeLabels[video.id]) return youtubeLabels[video.id];
             const title = workTitle(video);
             const text = `${title} ${video.category}`.toLowerCase();
 
@@ -708,6 +816,7 @@
         }
 
         function workDescription(video) {
+            if (youtubeDescriptions[video.id]) return youtubeDescriptions[video.id];
             const title = workTitle(video);
             const label = workLabel(video);
             const text = `${title} ${label} ${video.category}`.toLowerCase();
