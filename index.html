@@ -487,6 +487,7 @@
             </div>
             <div id="categoryFilters" class="mb-8 flex gap-3 overflow-x-auto pb-2"></div>
             <div id="videoGrid" class="work-grid"></div>
+            <div id="videoPagination"></div>
         </main>
     </div>
 
@@ -510,6 +511,14 @@
             </div>
         </main>
     </div>
+
+    <button type="button" id="backToTopBtn" aria-label="回到頂端"
+        style="display:none; position:fixed; bottom:24px; right:24px; z-index:90;
+               width:48px; height:48px; border-radius:999px; background:white; color:#050505;
+               border:none; cursor:pointer; align-items:center; justify-content:center;
+               box-shadow:0 8px 28px rgba(0,0,0,0.35); transition:background 0.2s ease, transform 0.2s ease;">
+        <i data-lucide="chevron-up" style="width:22px;height:22px;"></i>
+    </button>
 
     <footer class="bg-[#0b0b0b] px-5 py-16 md:px-8">
         <div class="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -579,6 +588,7 @@
                 { id: "614I1ZWxgVY", category: "遊戲宣傳", orientation: "vertical" }
             ] },
             { key: "shorts", label: "短影音", intro: "直式短影音作品，針對手機觀看、快速節奏與社群停留時間設計。", videos: [
+                { id: "44pxW08BWew", category: "短影音", orientation: "wide" },
                 { id: "xdLj0ni_hNg", category: "短影音", orientation: "vertical" },
                 { id: "FUN6HKfKZvI", category: "短影音", orientation: "vertical" },
                 { id: "IqCjD_hK6UY", category: "短影音", orientation: "vertical" },
@@ -654,6 +664,9 @@ const categories = categoryData;
         ];
 
         let heroScrollReady = false;
+        const VIDEOS_PER_PAGE = 10;
+        let currentVideoPage = 1;
+        let currentCategory = null;
         const youtubeLabels = {
         };
         const youtubeTitles = {
@@ -701,6 +714,7 @@ const categories = categoryData;
             "eYYTn8WjKUY": "滿貫大富豪開桌！神手自摸拿役滿 | 星城Online",
             "-EyPnt0SKS4": "貓財神9:16",
             "614I1ZWxgVY": "法蘭克9:16",
+            "44pxW08BWew": "滑手機滑到快瞎了？這6招瞬間拯救3C眼！",
             "xdLj0ni_hNg": "久站舒壓鞋墊短影音",
             "FUN6HKfKZvI": "兆聖0821",
             "IqCjD_hK6UY": "天堂PK宣傳",
@@ -858,10 +872,16 @@ function ids(category, orientation, list) {
 
         function renderVideos(category) {
             const grid = document.getElementById("videoGrid");
-            grid.innerHTML = category.videos.map((video, index) => `
+            const allVideos = category.videos;
+            const totalPages = Math.max(1, Math.ceil(allVideos.length / VIDEOS_PER_PAGE));
+            if (currentVideoPage > totalPages) currentVideoPage = totalPages;
+            const startIndex = (currentVideoPage - 1) * VIDEOS_PER_PAGE;
+            const pageVideos = allVideos.slice(startIndex, startIndex + VIDEOS_PER_PAGE);
+
+            grid.innerHTML = pageVideos.map((video, index) => `
                 <article class="video-card ${video.orientation === "vertical" ? "vertical" : ""}">
                     <div class="video-shell" data-video-id="${video.id}">
-                        <button type="button" class="video-poster" data-play-video="${video.id}" aria-label="播放 ${video.category} 作品 ${index + 1}">
+                        <button type="button" class="video-poster" data-play-video="${video.id}" aria-label="播放 ${video.category} 作品 ${startIndex + index + 1}">
                             <img src="${thumbUrl(video.id)}" alt="${video.category} 作品縮圖" loading="lazy">
                             <span class="play-mark">
                                 <i data-lucide="play" class="h-8 w-8"></i>
@@ -877,10 +897,62 @@ function ids(category, orientation, list) {
                     </div>
                 </article>
             `).join("");
+
             grid.querySelectorAll("[data-play-video]").forEach(button => {
                 button.addEventListener("click", () => playVideo(button));
             });
             if (window.lucide) lucide.createIcons();
+
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            const container = document.getElementById("videoPagination");
+            if (totalPages <= 1) {
+                container.innerHTML = "";
+                return;
+            }
+            container.innerHTML = `
+                <div class="flex items-center justify-center gap-4 mt-10">
+                    <button type="button" id="prevPageBtn"
+                        class="inline-flex h-10 items-center gap-2 rounded-full border px-5 text-sm font-bold transition-colors"
+                        style="border-color: rgba(255,255,255,0.25); color: white;"
+                        ${currentVideoPage === 1 ? "disabled" : ""}>
+                        ← 上一頁
+                    </button>
+                    <span style="color:#a3a3a3; font-size:14px;">${currentVideoPage} / ${totalPages}</span>
+                    <button type="button" id="nextPageBtn"
+                        class="inline-flex h-10 items-center gap-2 rounded-full border px-5 text-sm font-bold transition-colors"
+                        style="border-color: rgba(255,255,255,0.25); color: white;"
+                        ${currentVideoPage === totalPages ? "disabled" : ""}>
+                        下一頁 →
+                    </button>
+                </div>
+            `;
+            const prevBtn = document.getElementById("prevPageBtn");
+            const nextBtn = document.getElementById("nextPageBtn");
+            if (prevBtn) {
+                prevBtn.style.opacity = currentVideoPage === 1 ? "0.3" : "1";
+                prevBtn.style.cursor = currentVideoPage === 1 ? "not-allowed" : "pointer";
+                prevBtn.addEventListener("click", () => {
+                    if (currentVideoPage > 1) {
+                        currentVideoPage--;
+                        renderVideos(currentCategory);
+                        document.getElementById("pageWork").scrollIntoView({ behavior: "smooth" });
+                    }
+                });
+            }
+            if (nextBtn) {
+                nextBtn.style.opacity = currentVideoPage === totalPages ? "0.3" : "1";
+                nextBtn.style.cursor = currentVideoPage === totalPages ? "not-allowed" : "pointer";
+                nextBtn.addEventListener("click", () => {
+                    if (currentVideoPage < totalPages) {
+                        currentVideoPage++;
+                        renderVideos(currentCategory);
+                        document.getElementById("pageWork").scrollIntoView({ behavior: "smooth" });
+                    }
+                });
+            }
         }
 
         function playVideo(button) {
@@ -912,10 +984,11 @@ function ids(category, orientation, list) {
         }
 
         function setCategory(key) {
-            const category = categories.find(item => item.key === key) || categories[0];
-            document.getElementById("categoryIntro").textContent = category.intro;
-            renderFilters(category.key);
-            renderVideos(category);
+            currentCategory = categories.find(item => item.key === key) || categories[0];
+            currentVideoPage = 1;
+            document.getElementById("categoryIntro").textContent = currentCategory.intro;
+            renderFilters(currentCategory.key);
+            renderVideos(currentCategory);
         }
 
         function showPage(page) {
@@ -1014,11 +1087,30 @@ function ids(category, orientation, list) {
             document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
         }
 
+        function setupBackToTop() {
+            const btn = document.getElementById("backToTopBtn");
+            window.addEventListener("scroll", () => {
+                btn.style.display = window.scrollY > 300 ? "flex" : "none";
+            });
+            btn.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            btn.addEventListener("mouseenter", () => {
+                btn.style.background = "var(--mint)";
+                btn.style.transform = "translateY(-2px)";
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.background = "white";
+                btn.style.transform = "translateY(0)";
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("protocolWarning").classList.toggle("active", window.location.protocol === "file:");
             setupNavigation();
             setupHeroScroll();
             setupReveal();
+            setupBackToTop();
             if (window.lucide) lucide.createIcons();
         });
     </script>
