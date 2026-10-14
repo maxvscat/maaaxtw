@@ -545,6 +545,7 @@
     <script>
         const categoryData = [
             { key: "program", label: "節目剪輯", intro: "節目、訪談與長型內容剪輯，整理資訊線、段落節奏與觀看流暢度。", videos: [
+                { id: "3tF181NZ-bQ", category: "節目剪輯", orientation: "wide" },
                 { id: "z8negODu0Lc", category: "節目剪輯", orientation: "wide" },
                 { id: "B_dvX8tfVfY", category: "節目剪輯", orientation: "wide" },
                 { id: "1Jx-WUdLLYI", category: "節目剪輯", orientation: "wide" },
@@ -589,6 +590,7 @@
                 { id: "AL6-rTltOEE", category: "企業品牌", orientation: "wide" }
             ] },
             { key: "game", label: "遊戲宣傳", intro: "遊戲宣傳作品，強調節奏、亮點堆疊、角色與玩法的吸引力。", videos: [
+                { id: "tqjxuoiDJfc", category: "遊戲宣傳", orientation: "wide" },
                 { id: "OchBXWy14M0", category: "遊戲宣傳", orientation: "wide" },
                 { id: "SAaBqTF7ER8", category: "遊戲宣傳", orientation: "wide" },
                 { id: "vRR9VOosY5k", category: "遊戲宣傳", orientation: "wide" },
@@ -602,6 +604,10 @@
                 { id: "614I1ZWxgVY", category: "遊戲宣傳", orientation: "vertical" }
             ] },
             { key: "shorts", label: "短影音", intro: "直式短影音作品，針對手機觀看、快速節奏與社群停留時間設計。", videos: [
+                { id: "oIX9M6-QpCE", category: "短影音", orientation: "vertical" },
+                { id: "z_AMSVZU8NM", category: "短影音", orientation: "vertical" },
+                { id: "sMBb3PE83ZE", category: "短影音", orientation: "vertical" },
+                { id: "CU8qw-D1pOg", category: "短影音", orientation: "vertical" },
                 { id: "_b56-ogBKEo", category: "短影音", orientation: "vertical" },
                 { id: "dq4wo6A8sDQ", category: "短影音", orientation: "vertical" },
                 { id: "MkulYeMuhJU", category: "短影音", orientation: "vertical" },
@@ -716,9 +722,11 @@ const categories = categoryData;
             "美妝保養",
             "3C科技",
             "生活日常",
-            "Bella-美妝保養"
+            "Bella-美妝保養",
+            "休閒娛樂"
         ];
         const youtubeLabels = {
+            "3tF181NZ-bQ": "AI短劇",
             "z8negODu0Lc": "科普教育",
             "B_dvX8tfVfY": "科普教育",
             "1Jx-WUdLLYI": "科普教育",
@@ -745,6 +753,10 @@ const categories = categoryData;
             "7WXBNHivN0U": "科普教育",
             "-EyPnt0SKS4": "遊戲宣傳",
             "614I1ZWxgVY": "遊戲宣傳",
+            "oIX9M6-QpCE": "休閒娛樂",
+            "z_AMSVZU8NM": "政治時事",
+            "sMBb3PE83ZE": "餐飲美食",
+            "CU8qw-D1pOg": "AI短劇",
             "_b56-ogBKEo": "AI短劇",
             "dq4wo6A8sDQ": "AI短劇",
             "MkulYeMuhJU": "AI短劇",
@@ -810,6 +822,7 @@ const categories = categoryData;
             "4tqygYnojYI": "科普教育"
         };
         const youtubeTitles = {
+            "3tF181NZ-bQ": "AI人物祝中秋快樂",
             "z8negODu0Lc": "【手術介紹】腹部拉皮12大問題一次解答",
             "B_dvX8tfVfY": "投資快問快答",
             "1Jx-WUdLLYI": "愛打手槍會遲射？早洩如何鎖精？",
@@ -848,6 +861,7 @@ const categories = categoryData;
             "NectNxyCw80": "光 工作室",
             "1ydoH79yqQE": "TIDY網站宣傳動畫",
             "AL6-rTltOEE": "閃電狼官網動畫",
+            "tqjxuoiDJfc": "簽下巫毒契約，雙輪轉出神秘驚喜｜星城",
             "OchBXWy14M0": "哪吒鬧海顯身手，決戰敖丙奪高倍 | 星城",
             "SAaBqTF7ER8": "大鬧西遊2玩翻三界，金箍棒橫掃全場！| 星城",
             "vRR9VOosY5k": "大運西遊，取經在即！師徒聯手修成正果 | 星城",
@@ -859,6 +873,10 @@ const categories = categoryData;
             "eYYTn8WjKUY": "滿貫大富豪開桌！神手自摸拿役滿 | 星城Online",
             "-EyPnt0SKS4": "貓財神9:16",
             "614I1ZWxgVY": "法蘭克9:16",
+            "oIX9M6-QpCE": "5分鐘挑戰",
+            "z_AMSVZU8NM": "九一八事件",
+            "sMBb3PE83ZE": "登峰魚酥",
+            "CU8qw-D1pOg": "手遊AI廣告",
             "_b56-ogBKEo": "三國打巴掌",
             "dq4wo6A8sDQ": "俠盜",
             "MkulYeMuhJU": "自戀",
